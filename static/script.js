@@ -102,13 +102,15 @@ function renderValidationSummary(fileValidation) {
 
   let html = "<h4>Invalid Features from val3dity</h4><ul>";
   invalidFeatures.forEach(feature => {
-    html += `<li class="val3dity-feature" data-id="${feature.id}"><b>${feature.id}</b> (${feature.type})<ul>`;
+    html += `<li><b>${feature.id}</b> (${feature.type})<ul>`;
 
     // General errors (at feature level)
     if (feature.errors && feature.errors.length > 0) {
-      html += `<li><i>Feature-level errors:</i><ul>`;
+      html += `<li data-feature-id="${feature.id}"><i>Feature-level errors:</i><ul>`;
+
       feature.errors.forEach(err => {
-        html += `<li>[${err.code}] ${err.description} — ${err.info}</li>`;
+        html += `<li data-feature-id="${feature.id}">[${err.code}] ${err.description} — ${err.info}</li>`;
+
       });
       html += "</ul></li>";
     }
@@ -116,9 +118,11 @@ function renderValidationSummary(fileValidation) {
     // Primitive-specific errors
     feature.primitives?.forEach(prim => {
       if (prim.validity === false) {
-        html += `<li><b>Primitive ${prim.id}</b> (${prim.type})<ul>`;
+        html += `<li data-feature-id="${feature.id}"><b>Primitive ${prim.id}</b> (${prim.type})<ul>`;
+
         prim.errors?.forEach(err => {
-          html += `<li>[${err.code}] ${err.description} — ${err.info}</li>`;
+          html += `<li data-feature-id="${feature.id}">[${err.code}] ${err.description} — ${err.info}</li>`;
+
         });
         html += "</ul></li>";
       }
@@ -351,6 +355,59 @@ function viewWhole(glbdata) {
         return targetObject;
     }
 
+function findRenderableFallbackID(missingId, primitiveId = null) {
+    if (!jsonDoc || !jsonDoc.CityObjects) return null;
+    const CityObjects = jsonDoc.CityObjects;
+    const obj = CityObjects[missingId];
+
+    // 1. Try child match based on primitive ID
+    if (obj?.children && primitiveId != null) {
+        for (const childId of obj.children) {
+            const child = CityObjects[childId];
+            if (!child?.geometry) continue;
+
+            for (const geom of child.geometry) {
+                const surfaces = geom?.semantics?.surfaces || [];
+                for (let i = 0; i < surfaces.length; i++) {
+                    const surface = surfaces[i];
+                    if (surface?.id && i === primitiveId) {
+                        if (findObjectByNameOrUUID(scene, childId)) {
+                            console.log(`Fallback matched primitive index ${primitiveId} in child ${childId}`);
+                            return childId;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // 2. Try first geometry-bearing child
+    if (obj?.children) {
+        for (const childId of obj.children) {
+            if (findObjectByNameOrUUID(scene, childId)) {
+                return childId;
+            }
+        }
+    }
+
+    // 3. Fallback: is this a semantic surface id inside a parent?
+    for (const [cid, co] of Object.entries(CityObjects)) {
+        if (!co.geometry) continue;
+        for (const geom of co.geometry) {
+            const surfaces = geom?.semantics?.surfaces || [];
+            for (const surface of surfaces) {
+                if (surface.id === missingId) {
+                    if (findObjectByNameOrUUID(scene, cid)) return cid;
+                }
+            }
+        }
+    }
+
+    return null;
+}
+
+
+
     // Load the GLB model
     const loader = new THREE.GLTFLoader();
     loader.load(
@@ -456,49 +513,77 @@ function viewWhole(glbdata) {
         renderer.render(scene, camera);
     }
 
-    // Function to start zoom animation for a new object
-    function startZoomAnimation(id) {
-        // Restore the previous object's material if it exists
-        if (previousOBJ && originalMaterials[previousOBJ.uuid]) {
-            previousOBJ.material = originalMaterials[previousOBJ.uuid]; // Restore the original material
-            delete originalMaterials[previousOBJ.uuid]; // Remove from storage
-        }
+    function startZoomAnimation(id, primitiveId = null) {
+    if (previousOBJ && originalMaterials[previousOBJ.uuid]) {
+        previousOBJ.material = originalMaterials[previousOBJ.uuid];
+        delete originalMaterials[previousOBJ.uuid];
+    }
 
-        // Find the new selected object
-        selectedID = id;
-        selectedOBJ = findObjectByNameOrUUID(scene, selectedID);
+    selectedID = id;
+    selectedOBJ = findObjectByNameOrUUID(scene, selectedID);
 
-        if (selectedOBJ) {
-            // Store the original material of the new selected object
-            if (!originalMaterials[selectedOBJ.uuid]) {
-                originalMaterials[selectedOBJ.uuid] = selectedOBJ.material.clone(); // Clone the original material
-            }
-
-            // Apply a temporary material for the selected object
-            selectedOBJ.material = new THREE.MeshStandardMaterial({
-                color: 0xff0000, // Example: Red color
-                transparent: true,
-                opacity: 0.5 // Semi-transparent during zoom
-            });
-
-            // Reset the previous object reference
-            previousOBJ = selectedOBJ;
-
-            // Start the zoom-in animation
-            isAutoZooming = true;
-            console.log("Starting zoom-in animation for:", selectedID);
-        } else {
-            console.warn(`Object with ID "${selectedID}" not found.`);
+    if (!selectedOBJ) {
+        console.warn(`Object with ID "${selectedID}" not found. Trying fallback.`);
+        const fallbackId = findRenderableFallbackID(selectedID, primitiveId);  // ✅ pass primitiveId here
+        if (fallbackId) {
+            console.log(`Trying fallback ID: ${fallbackId}`);
+            selectedID = fallbackId;
+            selectedOBJ = findObjectByNameOrUUID(scene, selectedID);
         }
     }
 
+    if (selectedOBJ) {
+                    // Store the original material of the new selected object
+        if (!originalMaterials[selectedOBJ.uuid]) {
+            originalMaterials[selectedOBJ.uuid] = selectedOBJ.material.clone(); // Clone the original material
+        }
+
+        // Apply a temporary material for the selected object
+        selectedOBJ.material = new THREE.MeshStandardMaterial({
+            color: 0xff0000, // Example: Red color
+            transparent: true,
+            opacity: 0.5 // Semi-transparent during zoom
+        });
+
+        // Reset the previous object reference
+        previousOBJ = selectedOBJ;
+
+        // Start the zoom-in animation
+        isAutoZooming = true;
+        console.log("Starting zoom-in animation for:", selectedID);
+        
+    } else {
+        console.warn(`Object with ID "${selectedID}" not found in GLB (even after fallback).`);
+    }
+}
+
+
     // Example: Trigger zoom-in animation when a URI is clicked
     document.getElementById("val3dity").addEventListener("click", function (event) {
-        const listItem = event.target.closest(".val3dity-feature");
-        if (listItem) {
-            const id = listItem.getAttribute("data-id");
-            if (id) startZoomAnimation(id);
-        }
-    });
+    let target = event.target;
+    let featureItem = null;
 
-}
+    while (target && target !== this) {
+        if (target.hasAttribute("data-feature-id")) {
+            featureItem = target;
+            break;
+        }
+        target = target.parentNode;
+    }
+
+    if (featureItem) {
+        const id = featureItem.getAttribute("data-feature-id");
+
+        const fullText = featureItem.innerText || "";
+        const match = fullText.match(/Primitive\s+(\d+)/i);
+        const primitiveId = match ? parseInt(match[1], 10) : null;
+
+        console.log("Clicked feature ID:", id);
+        console.log("Primitive ID (if any):", primitiveId);
+
+        if (id) startZoomAnimation(id, primitiveId);
+    } else {
+        console.warn("No feature ID found in clicked element.");
+    }
+});
+}   
