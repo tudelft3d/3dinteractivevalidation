@@ -1,0 +1,1789 @@
+{
+  "valid": false,
+  "val3dityResult": false,
+  "shaclResult": true,
+  "shaclReport": {
+    "@context": {
+      "shacl": "http://www.w3.org/ns/shacl#",
+      "@vocab": "http://www.w3.org/ns/shacl#",
+      "result": {
+        "@container": "@set"
+      },
+      "focusNode": {
+        "@type": "@id"
+      },
+      "resultPath": {
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "resultSeverity": {
+        "@type": "@id"
+      }
+    },
+    "@type": "ValidationReport",
+    "conforms": false,
+    "result": [
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
+        "resultMessage": "Building or its storeys must contain a Wall with hasWindows = 1.",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b49",
+          "@type": "SPARQLConstraint",
+          "message": "Building or its storeys must contain a Wall with hasWindows = 1.",
+          "select": "\n      SELECT $this WHERE {\n        FILTER NOT EXISTS {\n          {\n            # Building\n            $this city:hasGeometry ?geom .\n            ?geom city:hasSurface ?surface .\n            ?surface a city:WallSurface ;\n                     attr:hasWindows ?val .\n            FILTER(str(?val) = \"1\")\n          }\n          UNION\n          {\n            # BuildingStorey\n            ?storey a city:BuildingStorey ;\n                    city:hasParent $this ;\n                    city:hasGeometry ?geom2 .\n            ?geom2 city:hasSurface ?surface2 .\n            ?surface2 a city:WallSurface ;\n                      attr:hasWindows ?val2 .\n            FILTER(str(?val2) = \"1\")\n          }\n        }\n      }\n    "
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building or its storeys must contain a Wall with hasWindows = 1.",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b49"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building or its storeys must contain a Wall with hasWindows = 1.",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b49"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
+        "resultMessage": "Building or its storeys must contain a Door with mainEntrance = 1.",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b50",
+          "@type": "SPARQLConstraint",
+          "message": "Building or its storeys must contain a Door with mainEntrance = 1.",
+          "select": "\n      SELECT $this WHERE {\n        FILTER NOT EXISTS {\n          {\n            # Building\n            $this city:hasGeometry ?geom .\n            ?geom city:hasSurface ?surface .\n            ?surface a city:Door ;\n                     attr:mainEntrance ?val .\n            FILTER(str(?val) = \"1\")\n          }\n          UNION\n          {\n            # BuildingStorey\n            ?storey a city:BuildingStorey ;\n                    city:hasParent $this ;\n                    city:hasGeometry ?geom2 .\n            ?geom2 city:hasSurface ?surface2 .\n            ?surface2 a city:Door ;\n                      attr:mainEntrance ?val2 .\n            FILTER(str(?val2) = \"1\")\n          }\n        }\n      }\n    "
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building or its storeys must contain a Door with mainEntrance = 1.",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b50"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building or its storeys must contain a Door with mainEntrance = 1.",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b50"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
+        "resultMessage": "Building or its storeys must contain a Door with mainEntrance = 1.",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b50"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_57416_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
+        "resultMessage": "Building or its storeys must contain a Door with mainEntrance = 1.",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b50"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
+        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51",
+          "prefixes": {
+            "@id": "http://example.org/"
+          },
+          "select": "\n      SELECT $this (?value as ?path) ?value ?req WHERE {\n        {\n          FILTER NOT EXISTS {\n            $this attr:geometricAccuracy ?value .\n            FILTER(datatype(?value) = xsd:float && xsd:float(?value) > 0 && xsd:float(?value) <= 0.1)\n          }\n          BIND(\"Building geometricAccuracy must be a positive float <= 0.1 m\" as ?req)\n        } UNION {\n          FILTER NOT EXISTS { $this attr:legalHeight ?value }\n          BIND(\"legalHeight is missing\" as ?req)\n        } UNION {\n          $this attr:legalHeight ?value .\n          FILTER(xsd:float(?value) <= 0)\n          BIND(\"legalHeight must be a positive float\" as ?req)\n        } UNION {\n          FILTER NOT EXISTS { $this attr:legalVolume ?value }\n          BIND(\"legalVolume is missing\" as ?req)\n        } UNION {\n          $this attr:legalVolume ?value .\n          FILTER(xsd:float(?value) <= 0)\n          BIND(\"legalVolume must be a positive float\" as ?req)\n        } UNION {\n          FILTER NOT EXISTS { $this attr:storeysAboveGround ?value }\n          BIND(\"storeysAboveGround is missing\" as ?req)\n        } UNION {\n          $this attr:storeysAboveGround ?value .\n          FILTER(xsd:integer(?value) < 0)\n          BIND(\"storeysAboveGround must be a non-negative integer\" as ?req)\n        } UNION {\n          FILTER NOT EXISTS { $this attr:storeysBelowGround ?value }\n          BIND(\"storeysBelowGround is missing\" as ?req)\n        } UNION {\n          $this attr:storeysBelowGround ?value .\n          FILTER(xsd:integer(?value) < 0)\n          BIND(\"storeysBelowGround must be a non-negative integer\" as ?req)\n        }\n      }\n    "
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
+        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
+        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
+        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
+        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_69108_0",
+        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_69108_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_69108_0",
+        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_69108_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_69108_0",
+        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_69108_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_69108_0",
+        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_69108_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_69108_0",
+        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_69108_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_59110_0",
+        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_59110_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_59110_0",
+        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_59110_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_59110_0",
+        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_59110_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_59110_0",
+        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_59110_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_59110_0",
+        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_59110_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527",
+        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527",
+        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527",
+        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527",
+        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527",
+        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
+        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_57416_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
+        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_57416_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
+        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_57416_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
+        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_57416_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
+        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_57416_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
+        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
+        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
+        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
+        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
+        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b51"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
+        }
+      }
+    ]
+  },
+  "fileValidation": [
+    {
+      "fileIndex": 0,
+      "name": "Lisboa_v3.json",
+      "valid": false,
+      "val3dityReport": {
+        "all_errors": [
+          104,
+          906
+        ],
+        "dataset_errors": [],
+        "features": [
+          {
+            "errors": [],
+            "id": "ID_03fa7223-be92-44ac-8e69-808cd4dab530",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 11,
+                "numbervertices": 34,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_179a8efc-defd-4585-afbf-147a578ae10b",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 10,
+                "numbervertices": 25,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_1a53f579-3a42-48be-b4ff-efac7522cd4e",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 14,
+                "numbervertices": 19,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_25896_0",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 21,
+                "numbervertices": 56,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "1",
+                "numberfaces": 18,
+                "numbervertices": 57,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "2",
+                "numberfaces": 19,
+                "numbervertices": 66,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "3",
+                "numberfaces": 19,
+                "numbervertices": 66,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "4",
+                "numberfaces": 19,
+                "numbervertices": 66,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "errors": [
+                  {
+                    "code": 104,
+                    "description": "RING_SELF_INTERSECTION",
+                    "id": "0",
+                    "info": "ring self-intersects or is collapsed to a line",
+                    "type": "Error"
+                  }
+                ],
+                "id": "5",
+                "numberfaces": 19,
+                "numbervertices": 67,
+                "type": "MultiSurface",
+                "validity": false
+              },
+              {
+                "id": "6",
+                "numberfaces": 15,
+                "numbervertices": 18,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "Building",
+            "validity": false
+          },
+          {
+            "errors": [],
+            "id": "ID_2f5136fd-42b5-4f6b-95aa-15414a4f7390",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 9,
+                "numbervertices": 27,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_399b0cef-b41c-438f-9491-b4e6e6a8d594",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 19,
+                "numbervertices": 66,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_3c86f8aa-c1cb-4b33-ac54-ae2453719782",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 18,
+                "numbervertices": 57,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_3ed1fe9b-7eee-4027-8d39-52d63cbe872a",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 18,
+                "numbervertices": 30,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_4415b26e-e159-4bdf-8b9e-bdc0e2946763",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 11,
+                "numbervertices": 40,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_4dcd42e4-1077-4f09-8b49-697b8fe92e11",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 9,
+                "numbervertices": 27,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_57416_0",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 19,
+                "numbervertices": 56,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "1",
+                "numberfaces": 17,
+                "numbervertices": 52,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "2",
+                "numberfaces": 16,
+                "numbervertices": 48,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "3",
+                "numberfaces": 8,
+                "numbervertices": 12,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "Building",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_59110_0",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 9,
+                "numbervertices": 21,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "1",
+                "numberfaces": 9,
+                "numbervertices": 27,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "2",
+                "numberfaces": 10,
+                "numbervertices": 30,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "3",
+                "numberfaces": 18,
+                "numbervertices": 30,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "Building",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_59deea77-bbb0-4366-9180-71a1a08840a1",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 11,
+                "numbervertices": 40,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_62db1b07-bfc9-4054-a0c9-3c3a0ebbcc87",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 9,
+                "numbervertices": 21,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_69108_0",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 10,
+                "numbervertices": 25,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "1",
+                "numberfaces": 9,
+                "numbervertices": 27,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "2",
+                "numberfaces": 9,
+                "numbervertices": 27,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "3",
+                "numberfaces": 9,
+                "numbervertices": 27,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "4",
+                "numberfaces": 7,
+                "numbervertices": 12,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "Building",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_78668_0",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 8,
+                "numbervertices": 10,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "Building",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_7eabbc0f-4f76-4066-9e69-52e8ea06e876",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 19,
+                "numbervertices": 66,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_813f136b-a4b9-4ac2-960d-2599460a1ad4",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 19,
+                "numbervertices": 92,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_8c7eba3a-3574-422c-acbc-50cfd21f9915",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 26,
+                "numbervertices": 112,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_9357_0",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 11,
+                "numbervertices": 14,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "Building",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_94234e0c-1f77-4bd7-a0f2-8fb418e0e01d",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 19,
+                "numbervertices": 66,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_9a67ce3d-651b-4de0-bb21-2ec467f0a860",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 15,
+                "numbervertices": 18,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_9c56f425-e1ef-4cb0-a52f-c8c0b7072136",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 20,
+                "numbervertices": 29,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_adc63831-e33c-4853-b562-32d43a69a8b2",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 9,
+                "numbervertices": 27,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_b107b063-eee4-4b6a-b15d-3d0ef7da3a1a",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 19,
+                "numbervertices": 56,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_bcb2f89e-4a92-467a-8088-7c44da482100",
+            "primitives": [
+              {
+                "errors": [
+                  {
+                    "code": 104,
+                    "description": "RING_SELF_INTERSECTION",
+                    "id": "0",
+                    "info": "ring self-intersects or is collapsed to a line",
+                    "type": "Error"
+                  }
+                ],
+                "id": "0",
+                "numberfaces": 19,
+                "numbervertices": 67,
+                "type": "MultiSurface",
+                "validity": false
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": false
+          },
+          {
+            "errors": [],
+            "id": "ID_c64e3336-75fe-491e-91d6-886d669dba2a",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 16,
+                "numbervertices": 48,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_cafe194a-99f0-45b9-8c4c-4b5768d448b8",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 9,
+                "numbervertices": 27,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_cd6816aa-73b7-4fbe-a05e-2dcef59d0d09",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 7,
+                "numbervertices": 12,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_ea72e4c8-f94d-4af4-a981-2783b0420592",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 17,
+                "numbervertices": 52,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_fc614bb9-02db-43a0-b7c5-1d7c5937314a",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 21,
+                "numbervertices": 56,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_fe24ab24-9825-41c8-8947-e747b3f87f85",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 10,
+                "numbervertices": 30,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "ID_ffc0b5fb-afd8-4d21-bf92-81e4c175f379",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 8,
+                "numbervertices": 12,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingStorey",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "UUID_BuildingInstallation_1087_181008_57521",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 4,
+                "numbervertices": 8,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingInstallation",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "UUID_BuildingInstallation_1345_461761_102193",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 8,
+                "numbervertices": 16,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingInstallation",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "UUID_BuildingInstallation_196_356348_204381",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 8,
+                "numbervertices": 16,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingInstallation",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "UUID_BuildingInstallation_467_35317_245701",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 4,
+                "numbervertices": 8,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingInstallation",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "UUID_BuildingInstallation_6_304831_295955",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 4,
+                "numbervertices": 8,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingInstallation",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "UUID_BuildingInstallation_778_853639_105154",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 71,
+                "numbervertices": 136,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingInstallation",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "UUID_BuildingInstallation_819_150945_63843",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 4,
+                "numbervertices": 8,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "BuildingInstallation",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "UUID_Building_1360_774678_85788",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 26,
+                "numbervertices": 112,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "1",
+                "numberfaces": 20,
+                "numbervertices": 29,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "Building",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "UUID_Building_1425_697003_12527",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 19,
+                "numbervertices": 92,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "1",
+                "numberfaces": 11,
+                "numbervertices": 40,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "2",
+                "numberfaces": 11,
+                "numbervertices": 40,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "3",
+                "numberfaces": 11,
+                "numbervertices": 34,
+                "type": "MultiSurface",
+                "validity": true
+              },
+              {
+                "id": "4",
+                "numberfaces": 14,
+                "numbervertices": 19,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "Building",
+            "validity": true
+          },
+          {
+            "errors": [],
+            "id": "UUID_Building_1915_214713_199304",
+            "primitives": [
+              {
+                "id": "0",
+                "numberfaces": 40,
+                "numbervertices": 70,
+                "type": "MultiSurface",
+                "validity": true
+              }
+            ],
+            "type": "OtherConstruction",
+            "validity": true
+          },
+          {
+            "errors": [
+              {
+                "code": 906,
+                "description": "PRIMITIVE_NO_GEOMETRY",
+                "id": "Feature has no geometry defined (or val3dity doesn't handle this type).",
+                "info": "",
+                "type": "Error"
+              }
+            ],
+            "id": "UUID_Road_1161_203947_301243",
+            "primitives": null,
+            "type": "Road",
+            "validity": false
+          }
+        ],
+        "features_overview": [
+          {
+            "total": 8,
+            "type": "Building",
+            "valid": 7
+          },
+          {
+            "total": 7,
+            "type": "BuildingInstallation",
+            "valid": 7
+          },
+          {
+            "total": 27,
+            "type": "BuildingStorey",
+            "valid": 26
+          },
+          {
+            "total": 1,
+            "type": "OtherConstruction",
+            "valid": 1
+          },
+          {
+            "total": 1,
+            "type": "Road",
+            "valid": 0
+          }
+        ],
+        "input_file": "/data-temp/79/7935f37f-54d3-4eec-be1f-b195586d1d6f/input_city.0.json",
+        "input_file_type": "CityJSON",
+        "parameters": {
+          "overlap_tol": -1,
+          "planarity_d2p_tol": 0.01,
+          "planarity_n_tol": 20,
+          "snap_tol": 0.001
+        },
+        "primitives_overview": [
+          {
+            "total": 64,
+            "type": "MultiSurface",
+            "valid": 62
+          }
+        ],
+        "time": "Sat May 31 11:57:18 2025 UTC",
+        "type": "val3dity_report",
+        "val3dity_version": "2.4.0",
+        "validity": false
+      }
+    }
+  ]
+}
