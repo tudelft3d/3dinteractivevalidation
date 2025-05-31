@@ -149,7 +149,7 @@ my-rule:HasWindowsFromBuildingShape
   sh:targetClass city:Building ;
   sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:message "Building or its storeys must contain a Wall with hasWindows = 1." ;
+    sh:message "Building or its storeys must contain at least one WallSurface with hasWindows = 1." ;
     sh:select """
       SELECT $this WHERE {
         FILTER NOT EXISTS {
@@ -177,6 +177,60 @@ my-rule:HasWindowsFromBuildingShape
     """
   ] ;
   sh:severity sh:Violation .
+
+###################################################################
+# 3. Obstacles
+###################################################################
+my-rule:ObstacleRequirements
+  a sh:NodeShape ;
+  sh:targetClass city:GenericCityObject ;
+  sh:sparql [
+    sh:prefixes ex: ;
+    sh:select """
+      SELECT $this (?value as ?path) ?value ?req WHERE {
+        {
+          # averageHeight missing
+          FILTER NOT EXISTS {
+            $this attr:averageHeight ?averageHeight .
+            FILTER(datatype(?averageHeight) = xsd:float || isLiteral(?averageHeight))
+          }
+          BIND(attr:averageHeight as ?value)
+          BIND("averageHeight attribute is missing or not a float" as ?req)
+        } UNION {
+          # averageHeight not positive
+          $this attr:averageHeight ?averageHeight .
+          FILTER(xsd:float(?averageHeight) <= 0)
+          BIND(attr:averageHeight as ?value)
+          BIND("averageHeight must be a positive float" as ?req)
+        } UNION {
+          # abutmentHeight missing
+          FILTER NOT EXISTS {
+            $this attr:abutmentHeight ?abutmentHeight .
+            FILTER(datatype(?abutmentHeight) = xsd:float || isLiteral(?abutmentHeight))
+          }
+          BIND(attr:abutmentHeight as ?value)
+          BIND("abutmentHeight attribute is missing or not a float" as ?req)
+        } UNION {
+          # abutmentHeight not positive
+          $this attr:abutmentHeight ?abutmentHeight .
+          FILTER(xsd:float(?abutmentHeight) <= 0)
+          BIND(attr:abutmentHeight as ?value)
+          BIND("abutmentHeight must be a positive float" as ?req)
+        } UNION {
+          # geometricAccuracy missing or invalid
+          FILTER NOT EXISTS {
+            $this attr:geometricAccuracy ?geomAcc .
+            FILTER(datatype(?geomAcc) = xsd:float && xsd:float(?geomAcc) > 0 && xsd:float(?geomAcc) <= 0.2)
+          }
+          BIND(attr:geometricAccuracy as ?value)
+          BIND("geometricAccuracy must be a positive float <= 0.2 m" as ?req)
+        } 
+      }
+    """ ;
+  ] ;
+  sh:message "Obstacle does not satisfy requirement: {?req}" ;
+  sh:severity sh:Violation ;
+.
   
 ex: a owl:Ontology ;
 owl:imports sh: ;
