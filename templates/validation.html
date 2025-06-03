@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Validation test</title>
+    <script src="../static/validation.js"></script>
+    <style>
+      .hidden {
+          display: none;
+      }
+      .error {
+          color: red;
+          border-color: red;
+      }
+      textarea {
+          width: 100%;
+          height: 400px;
+          font-family: Consolas, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Input</h1>
+      <form id="validate-form">
+        <div>
+          <label for="file">File</label>
+          <input type="file" id="file" name="file">
+        </div>
+        <div>
+          <label for="profile"></label>
+          <textarea id="profile" name="profile"></textarea>
+        </div>
+        <div>
+          <button id="submit" type="submit">Validate</button>
+        </div>
+      </form>
+    </div>
+    <div id="results" class="hidden">
+      <h1>Results</h1>
+      <p id="loading" class="hidden">Loading...</p>
+      <textarea readonly id="report"></textarea>
+    </div>
+    <script>
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.classList.add('hidden');
+      const form = document.querySelector('#validate-form');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const file = form.file.files?.[0];
+        if (!file) {
+          alert('Please select a file to validate.');
+          return;
+        }
+        const profileText = form.profile.value;
+        if (!profileText?.trim?.()) {
+          alert('Please add content for the profile.');
+          return;
+        }
+        const loader = document.getElementById('loading');
+        const resultsTextArea = document.getElementById('report');
+        loader.classList.remove('hidden');
+        resultsDiv.classList.remove('hidden');
+        resultsTextArea.classList.remove('error');
+        resultsTextArea.classList.add('hidden');
+
+        // Running with file and profile contents.
+        const validation = checkValidate('http://localhost:8080/', {
+          file: file,
+          profileContents: profileText,
+        });
+
+        // .result is a promise that resolves with the validation results.
+        validation.result
+          .then(r => {
+            resultsTextArea.value = JSON.stringify(r, null, 2);
+          })
+          .catch((e) => {
+            resultsTextArea.classList.add('error');
+            resultsTextArea.value = e?.message || e;
+            console.error(e);
+          })
+          .finally(() => {
+            resultsTextArea.classList.remove('hidden');
+            loader.classList.add('hidden');
+          });
+      });
+    </script>
+  </body>
+</html>
