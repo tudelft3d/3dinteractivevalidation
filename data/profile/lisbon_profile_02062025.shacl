@@ -112,35 +112,54 @@ my-rule:MainEntranceFromBuildingShape
   sh:targetClass city:Building ;
   sh:sparql [
     a sh:SPARQLConstraint ;
-    sh:message "Building or its storeys must contain a Door with mainEntrance = 1." ;
+    sh:message "Building must contain either at least a storey or at least one Door with mainEntrance = 1" ;
     sh:select """
-      SELECT $this WHERE {
+    SELECT * WHERE {
+        $this a city:Building .
         FILTER NOT EXISTS {
           {
-            # Building
+          # Building
             $this city:hasGeometry ?geom .
             ?geom city:hasSurface ?surface .
             ?surface a city:Door ;
-                     attr:mainEntrance ?val .
-            FILTER(str(?val) = "1")
+                    attr:mainEntrance ?val .
+            FILTER (str(?val) = "1")
           }
           UNION
           {
-            # BuildingStorey
-            ?storey a city:BuildingStorey ;
-                    city:hasParent $this ;
-                    city:hasGeometry ?geom2 .
-            ?geom2 city:hasSurface ?surface2 .
-            ?surface2 a city:Door ;
-                      attr:mainEntrance ?val2 .
-            FILTER(str(?val2) = "1")
+            $this (city:hasChild|^city:hasParent)/rdf:type city:BuildingStorey .
           }
         }
-      }
+    }
     """
   ] ;
   sh:severity sh:Violation .
- 
+  
+my-rule:MainEntranceFromBuildingStoreyShape
+  a sh:NodeShape ;
+  sh:targetClass city:BuildingStorey ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Building storeys must contain at least one Door with mainEntrance = 1." ;
+    sh:select """
+      SELECT $this WHERE {
+        FILTER NOT EXISTS {
+          # BuildingStorey
+          ?storey a city:BuildingStorey ;
+                  city:hasGeometry ?geom2 .
+          ?geom2 city:hasSurface ?surface2 .
+          ?surface2 a city:Door ;
+                      attr:mainEntrance ?val2 .
+          FILTER(str(?val2) = "1")
+        }
+    }
+    """
+  ] ;
+  sh:severity sh:Violation .
+
+###################################################################
+# 3. hasWindows
+###################################################################
 my-rule:HasWindowsFromBuildingShape
   a sh:NodeShape ;
   sh:targetClass city:Building ;
@@ -148,22 +167,23 @@ my-rule:HasWindowsFromBuildingShape
     a sh:SPARQLConstraint ;
     sh:message "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1" ;
     sh:select """
-      SELECT $this WHERE {
-        FILTER NOT EXISTS {
-          {
-            # Building
-            $this city:hasGeometry ?geom .
-            ?geom city:hasSurface ?surface .
-            ?surface a city:WallSurface ;
-                     attr:hasWindows ?val .
-            FILTER(str(?val) = "1")
-          }
-          UNION
-          {
-            $this city:hasChild/rdf:type city:BuildingStorey .
-          }
+    SELECT * WHERE {
+      $this a city:Building .
+      FILTER NOT EXISTS {
+        {
+        # Building
+          $this city:hasGeometry ?geom .
+          ?geom city:hasSurface ?surface .
+          ?surface a city:WallSurface ;
+                  attr:hasWindows ?val .
+          FILTER (str(?val) = "1")
+        }
+        UNION
+        {
+          $this (city:hasChild|^city:hasParent)/rdf:type city:BuildingStorey .
         }
       }
+    }
     """
   ] ;
   sh:severity sh:Violation .

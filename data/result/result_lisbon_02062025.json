@@ -26,10 +26,304 @@
       {
         "@type": "ValidationResult",
         "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_59110_0",
+        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b57",
+          "@type": "SPARQLConstraint",
+          "message": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
+          "select": "\n      SELECT $this WHERE {\n        FILTER NOT EXISTS {\n          {\n            # Building\n            $this city:hasGeometry ?geom .\n            ?geom city:hasSurface ?surface .\n            ?surface a city:WallSurface ;\n                     attr:hasWindows ?val .\n            FILTER(str(?val) = \"1\")\n          }\n          UNION\n          {\n            $this city:hasChild/rdf:type city:BuildingStorey .\n          }\n        }\n      }\n    "
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_59110_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
+        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b57"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_69108_0",
+        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b57"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_69108_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b57"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b57"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
+        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b57"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_57416_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
+        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b57"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527",
+        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b57"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_59110_0",
+        "resultMessage": "Building must contain either at least a storey or at least one Door with mainEntrance = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b58",
+          "@type": "SPARQLConstraint",
+          "message": "Building must contain either at least a storey or at least one Door with mainEntrance = 1",
+          "select": "\n      SELECT $this WHERE {\n        FILTER NOT EXISTS {\n          {\n            # Building\n            $this city:hasGeometry ?geom .\n            ?geom city:hasSurface ?surface .\n            ?surface a city:Door ;\n                     attr:mainEntrance ?val .\n            FILTER(str(?val) = \"1\")\n          }\n          UNION\n          {\n            $this city:hasChild/rdf:type city:BuildingStorey .\n          }\n        }\n      }\n    "
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_59110_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
+        "resultMessage": "Building must contain either at least a storey or at least one Door with mainEntrance = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b58"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_69108_0",
+        "resultMessage": "Building must contain either at least a storey or at least one Door with mainEntrance = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b58"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_69108_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building must contain either at least a storey or at least one Door with mainEntrance = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b58"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building must contain either at least a storey or at least one Door with mainEntrance = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b58"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
+        "resultMessage": "Building must contain either at least a storey or at least one Door with mainEntrance = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b58"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_57416_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
+        "resultMessage": "Building must contain either at least a storey or at least one Door with mainEntrance = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b58"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527",
+        "resultMessage": "Building must contain either at least a storey or at least one Door with mainEntrance = 1",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b58"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_59110_0",
         "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54",
+          "@id": "_:b59",
           "prefixes": {
             "@id": "http://example.org/"
           },
@@ -51,7 +345,7 @@
         "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -69,7 +363,7 @@
         "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -87,7 +381,7 @@
         "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -105,7 +399,7 @@
         "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -119,101 +413,11 @@
       },
       {
         "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
-        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b54"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
-        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b54"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
-        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b54"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
-        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b54"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
-        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b54"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
         "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
         "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -231,7 +435,7 @@
         "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -249,7 +453,7 @@
         "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -267,7 +471,7 @@
         "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -285,7 +489,7 @@
         "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -299,101 +503,11 @@
       },
       {
         "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
-        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b54"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
-        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b54"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
-        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b54"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
-        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b54"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
-        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b54"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
         "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_69108_0",
         "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -411,7 +525,7 @@
         "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -429,7 +543,7 @@
         "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -447,7 +561,7 @@
         "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -465,7 +579,7 @@
         "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -479,11 +593,191 @@
       },
       {
         "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b59"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b59"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b59"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b59"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
+        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b59"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b59"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b59"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b59"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b59"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
+        "resultSeverity": "shacl:Violation",
+        "sourceConstraint": {
+          "@id": "_:b59"
+        },
+        "sourceConstraintComponent": {
+          "@id": "shacl:SPARQLConstraintComponent"
+        },
+        "sourceShape": {
+          "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
+        },
+        "value": {
+          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+        }
+      },
+      {
+        "@type": "ValidationResult",
         "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
         "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -501,7 +795,7 @@
         "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -519,7 +813,7 @@
         "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -537,7 +831,7 @@
         "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -555,7 +849,7 @@
         "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -569,11 +863,11 @@
       },
       {
         "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
         "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -582,16 +876,16 @@
           "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
         },
         "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
         }
       },
       {
         "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
         "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -600,16 +894,16 @@
           "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
         },
         "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
         }
       },
       {
         "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
         "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -618,16 +912,16 @@
           "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
         },
         "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
         }
       },
       {
         "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
         "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -636,16 +930,16 @@
           "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
         },
         "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
         }
       },
       {
         "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
+        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
         "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -654,7 +948,7 @@
           "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
         },
         "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
+          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
         }
       },
       {
@@ -663,7 +957,7 @@
         "resultMessage": "Building does not satisfy requirement: Building geometricAccuracy must be a positive float <= 0.1 m",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -681,7 +975,7 @@
         "resultMessage": "Building does not satisfy requirement: legalHeight is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -699,7 +993,7 @@
         "resultMessage": "Building does not satisfy requirement: legalVolume is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -717,7 +1011,7 @@
         "resultMessage": "Building does not satisfy requirement: storeysAboveGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
@@ -735,253 +1029,13 @@
         "resultMessage": "Building does not satisfy requirement: storeysBelowGround is missing",
         "resultSeverity": "shacl:Violation",
         "sourceConstraint": {
-          "@id": "_:b54"
+          "@id": "_:b59"
         },
         "sourceConstraintComponent": {
           "@id": "shacl:SPARQLConstraintComponent"
         },
         "sourceShape": {
           "@id": "http://example.com/change-me/#lisbonBuildingAttributeRules"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
-        "resultMessage": "Building or its storeys must contain a Door with mainEntrance = 1.",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b55",
-          "@type": "SPARQLConstraint",
-          "message": "Building or its storeys must contain a Door with mainEntrance = 1.",
-          "select": "\n      SELECT $this WHERE {\n        FILTER NOT EXISTS {\n          {\n            # Building\n            $this city:hasGeometry ?geom .\n            ?geom city:hasSurface ?surface .\n            ?surface a city:Door ;\n                     attr:mainEntrance ?val .\n            FILTER(str(?val) = \"1\")\n          }\n          UNION\n          {\n            # BuildingStorey\n            ?storey a city:BuildingStorey ;\n                    city:hasParent $this ;\n                    city:hasGeometry ?geom2 .\n            ?geom2 city:hasSurface ?surface2 .\n            ?surface2 a city:Door ;\n                      attr:mainEntrance ?val2 .\n            FILTER(str(?val2) = \"1\")\n          }\n        }\n      }\n    "
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
-        "resultMessage": "Building or its storeys must contain a Door with mainEntrance = 1.",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b55"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
-        "resultMessage": "Building or its storeys must contain a Door with mainEntrance = 1.",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b55"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
-        "resultMessage": "Building or its storeys must contain a Door with mainEntrance = 1.",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b55"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_57416_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
-        "resultMessage": "Building or its storeys must contain a Door with mainEntrance = 1.",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b55"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonMainEntranceFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_59110_0",
-        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b56",
-          "@type": "SPARQLConstraint",
-          "message": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
-          "select": "\n      SELECT $this WHERE {\n        FILTER NOT EXISTS {\n          {\n            # Building\n            $this city:hasGeometry ?geom .\n            ?geom city:hasSurface ?surface .\n            ?surface a city:WallSurface ;\n                     attr:hasWindows ?val .\n            FILTER(str(?val) = \"1\")\n          }\n          UNION\n          {\n            $this city:hasChild/rdf:type city:BuildingStorey .\n          }\n        }\n      }\n    "
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_59110_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_9357_0",
-        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b56"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_9357_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_78668_0",
-        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b56"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_78668_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_25896_0",
-        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b56"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_25896_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_69108_0",
-        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b56"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_69108_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-ID_57416_0",
-        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b56"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-ID_57416_0"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788",
-        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b56"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
-        },
-        "value": {
-          "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1360_774678_85788"
-        }
-      },
-      {
-        "@type": "ValidationResult",
-        "focusNode": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527",
-        "resultMessage": "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1",
-        "resultSeverity": "shacl:Violation",
-        "sourceConstraint": {
-          "@id": "_:b56"
-        },
-        "sourceConstraintComponent": {
-          "@id": "shacl:SPARQLConstraintComponent"
-        },
-        "sourceShape": {
-          "@id": "http://example.com/change-me/#lisbonHasWindowsFromBuildingShape"
         },
         "value": {
           "@id": "urn:city-validator:input-files/0/#city-objects-UUID_Building_1425_697003_12527"
@@ -1854,7 +1908,7 @@
             "valid": 0
           }
         ],
-        "input_file": "/data-temp/1a/1aaf02c2-4ac0-4f0d-81cd-2b8ef77d5789/input_city.0.json",
+        "input_file": "/data-temp/c7/c79d8050-343f-4417-a3eb-1c533966c3cc/input_city.0.json",
         "input_file_type": "CityJSON",
         "parameters": {
           "overlap_tol": -1,
@@ -1869,7 +1923,7 @@
             "valid": 62
           }
         ],
-        "time": "Mon Jun  2 10:47:43 2025 UTC",
+        "time": "Mon Jun  2 10:55:59 2025 UTC",
         "type": "val3dity_report",
         "val3dity_version": "2.4.0",
         "validity": false
