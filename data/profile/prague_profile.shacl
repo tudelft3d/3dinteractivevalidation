@@ -8,7 +8,28 @@
 @prefix attr: <http://example.com/vocab/city/attr#> .
 
 ###################################################################
-# 1. Building Attribute Rules
+# Existence
+###################################################################
+my-rule:DocumentMustHaveBuildingShape
+  a sh:NodeShape ;
+  sh:targetClass chek:document ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "A CityJSON document must contain at least one city:Building object." ;
+    sh:select """
+    SELECT * WHERE {
+      $this a chek:document .
+      FILTER NOT EXISTS {
+        $this ?p ?b .
+        ?b a city:Building .
+      }
+    }
+    """
+  ] ;
+  sh:severity sh:Violation .
+
+###################################################################
+# Building Attribute Rules
 ###################################################################
 my-rule:BuildingAttributeRules
   a sh:NodeShape ;
@@ -52,7 +73,7 @@ my-rule:BuildingAttributeRules
   sh:severity sh:Violation .
 
 ###################################################################
-# 2. hasWindows
+# hasWindows
 ###################################################################
 my-rule:HasWindowsFromBuildingShape
   a sh:NodeShape ;
@@ -70,7 +91,11 @@ my-rule:HasWindowsFromBuildingShape
           ?geom city:hasSurface ?surface .
           ?surface a city:WallSurface ;
                   attr:hasWindows ?val .
-          FILTER (str(?val) = "1")
+                  FILTER (
+                    ?val2 = 1 || 
+                    str(?val2) = "1" || 
+                    ?val2 = true
+                  )
         }
         UNION
         {
@@ -97,7 +122,11 @@ my-rule:HasWindowsFromBuildingStoreyShape
           ?geom2 city:hasSurface ?surface2 .
           ?surface2 a city:WallSurface ;
                       attr:hasWindows ?val2 .
-          FILTER(str(?val2) = "1")
+                  FILTER (
+                    ?val2 = 1 || 
+                    str(?val2) = "1" || 
+                    ?val2 = true
+                  )
         }
     }
     """
@@ -105,7 +134,7 @@ my-rule:HasWindowsFromBuildingStoreyShape
   sh:severity sh:Violation .
 
 ###################################################################
-# 3. Space Usage (BuildingRoom)
+# Space Usage (BuildingRoom)
 ###################################################################
 my-rule:EachRoomHasSpaceShape
   a sh:NodeShape ;
@@ -125,7 +154,7 @@ my-rule:EachRoomHasSpaceShape
   sh:severity sh:Violation .
 
 ###################################################################
-# 4. Surface Rules (WallSurface / RoofSurface)
+# Surface Rules (WallSurface / RoofSurface)
 ###################################################################
 my-rule:SurfaceRules
   a sh:NodeShape ;
@@ -151,7 +180,7 @@ my-rule:SurfaceRules
   sh:severity sh:Violation .
 
 ###################################################################
-# 5. Obstacles
+# Obstacles
 ###################################################################
 my-rule:ObstacleRequirements
   a sh:NodeShape ;
