@@ -41,6 +41,10 @@
       <textarea readonly id="report"></textarea>
     </div>
     <script>
+      const backendUrl = 'http://localhost:8080/';
+
+      fetchProfiles(backendUrl).then(console.log);
+
       const resultsDiv = document.getElementById('results');
       resultsDiv.classList.add('hidden');
       const form = document.querySelector('#validate-form');
@@ -64,7 +68,7 @@
         resultsTextArea.classList.add('hidden');
 
         // Running with file and profile contents.
-        const validation = checkValidate('http://localhost:8080/', {
+        const validation = checkValidate(backendUrl, {
           file: file,
           profileContents: profileText,
         });

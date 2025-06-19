@@ -6,6 +6,9 @@ function checkValidate(backendUrl, {
   checkTimeoutMS: checkResultsTimeoutMS = 500
 }) {
 
+  if (!backendUrl.endsWith('/')) {
+    backendUrl += '/';
+  }
   let promiseResolve = null;
   let promiseReject = null;
   const result = new Promise((resolve, reject) => {
@@ -111,4 +114,19 @@ function checkValidate(backendUrl, {
     cancel,
     result,
   };
+}
+
+async function fetchProfiles(backendUrl) {
+  if (!backendUrl.endsWith('/')) {
+    backendUrl += '/';
+  }
+  const response = await fetch(new URL(`processes`, backendUrl));
+  if (!response.ok) {
+    throw new Error(`Could not retrieve processes: ${response.status} ${response.statusText}`);
+  }
+  const data = await response.json();
+  if (!data.processes) {
+    throw new Error('"processes" not found in response data');
+  }
+  return data.processes.filter(p => !p.id.startsWith('_'));
 }
