@@ -8,7 +8,11 @@ from cjio import cityjson
 import io
 import base64  
 from datetime import datetime
+import requests
+import time
 
+VALIDATOR_BASE_URL = 'http://0.0.0.0:8080/'
+CHECK_INTERVAL = 0.5  # seconds
 currDate = datetime.now()
 app = Flask(__name__)
 
@@ -63,6 +67,66 @@ def visualize():
 def download(filename):
     # Serve files from the 'received' directory
     return send_from_directory('received', filename, as_attachment=False)
+
+@app.route('/proxy/validate', methods=['POST'])
+def proxy_validate():
+    try:
+        request_data = request.get_json()
+        cityjson = request_data.get("cityjson")
+        profile_contents = request_data.get("profileContents", None)
+        profile_id = request_data.get("profileId", "_shaclValidation")
+
+        if not cityjson:
+            return jsonify({"error": "Missing 'cityjson' in request"}), 400
+
+        payload = {
+            "inputs": {
+                "cityFiles": [
+                    {
+                        "name": "file-0",
+                        "data_str": cityjson
+                    }
+                ]
+            }
+        }
+        if profile_contents:
+            payload["inputs"]["shacl"] = profile_contents
+
+        # Submit job
+        execution_url = f"{VALIDATOR_BASE_URL}/processes/{profile_id}/execution"
+        headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+
+        response = requests.post(execution_url, headers=headers, json=payload)
+        if not response.ok:
+            return jsonify({"error": f"Execution failed: {response.status_code}"}), response.status_code
+
+        job_data = response.json()
+        job_id = job_data.get("jobID")
+
+        # Poll job status
+        status_url = f"{VALIDATOR_BASE_URL}/jobs/{job_id}"
+        while True:
+            status_response = requests.get(status_url, headers=headers)
+            if not status_response.ok:
+                return jsonify({"error": "Failed to check job status"}), 500
+
+            status = status_response.json().get("status")
+            if status in ["successful"]:
+                break
+            elif status in ["failed", "dismissed"]:
+                return jsonify({"error": f"Job failed with status: {status}"}), 500
+            time.sleep(CHECK_INTERVAL)
+
+        # Get results
+        results_url = f"{VALIDATOR_BASE_URL}/jobs/{job_id}/results"
+        results_response = requests.get(results_url, headers=headers)
+        if not results_response.ok:
+            return jsonify({"error": "Failed to fetch results"}), 500
+
+        return results_response.json()
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
