@@ -10,11 +10,39 @@ import base64
 from datetime import datetime
 import requests
 import time
+from urllib.parse import urljoin
 
 VALIDATOR_BASE_URL = 'http://0.0.0.0:8080/'
 CHECK_INTERVAL = 0.5  # seconds
 currDate = datetime.now()
 app = Flask(__name__)
+app.url_map.strict_slashes = False
+
+def fetch_profiles(backend_url):
+    if not backend_url.endswith('/'):
+        backend_url += '/'
+
+    url = urljoin(backend_url, 'processes')
+
+    response = requests.get(url)
+    if not response.ok:
+        raise Exception(f"Could not retrieve processes: {response.status_code} {response.reason}")
+
+    data = response.json()
+
+    if 'processes' not in data:
+        raise Exception('"processes" not found in response data')
+
+    return [p for p in data['processes'] if not p['id'].startswith('_')]
+
+@app.route('/process-ids')
+def get_process_ids():
+    try:
+        processes = fetch_profiles(VALIDATOR_BASE_URL + "#validator")
+        ids = [p['id'] for p in processes]
+        return jsonify(ids)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/')
 def index():
@@ -68,7 +96,7 @@ def download(filename):
     # Serve files from the 'received' directory
     return send_from_directory('received', filename, as_attachment=False)
 
-@app.route('/proxy/validate', methods=['POST'])
+@app.route('/proxy/validate', methods=['POST'], strict_slashes=False)
 def proxy_validate():
     try:
         request_data = request.get_json()

@@ -4,6 +4,90 @@ let jsonBlob = null;
 const focusMap = {};
 let selectedID = null;
 let selectedOBJ = null;
+let choosenProfile = null;
+
+async function loadShaclIds() {
+    try {
+        const response = await fetch('/process-ids');
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.statusText}`);
+        }
+
+        const ids = await response.json();
+        const dropdown = document.getElementById('shaclDropdown');
+
+        // Önce önceki seçenekleri temizle
+        dropdown.innerHTML = '<option disabled selected>Choose a profile</option>';
+
+        ids.forEach(id => {
+            const option = document.createElement('option');
+            option.value = id;
+            option.textContent = id;
+            dropdown.appendChild(option);
+        });
+    } catch (error) {
+        alert("Cannot catch IDs: " + error.message);
+    }
+}
+
+function saveSelectedId(selectElement) {
+    choosenProfile = selectElement.value;
+    console.log("Seçilen ID:", choosenProfile);
+}
+
+document.getElementById('shaclFile').addEventListener('click', async () => {
+    if (!jsonDoc) {
+        alert("Please upload a CityJSON file first.");
+        return;
+    }
+
+    try {
+        const response = await fetch('/proxy/validate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                cityjson: JSON.stringify(jsonDoc),
+                profileContents: null,     // or a string if you later support profiles
+                profileId: choosenProfile            // will default to _shaclValidation
+            })
+        });
+
+        if (!response.ok) throw new Error("Validation failed");
+
+        const parsed = await response.json();
+        const results = parsed?.shaclReport?.result || [];
+        const fileValidation = parsed?.fileValidation;
+
+        renderValidationSummary(fileValidation);
+        Object.keys(focusMap).forEach(k => delete focusMap[k]);
+
+        results.forEach(res => {
+            const nodeFull = res.focusNode;
+            const nodeFullStr = typeof nodeFull === 'string' ? nodeFull : nodeFull?.['@id'] || '';
+            const nodeIdMatch = nodeFullStr.match(/ID_\d+_\d+/);
+            const identifier = res.focusNode?.["http://purl.org/dc/terms/identifier"];
+            const nodeId = identifier || nodeIdMatch?.[0];
+            if (!nodeId) return;
+            if (!focusMap[nodeId]) focusMap[nodeId] = [];
+            focusMap[nodeId].push(res);
+        });
+
+        const ul = document.getElementById('focusNodeList');
+        ul.innerHTML = '';
+        Object.entries(focusMap).forEach(([nodeId, results]) => {
+            const li = document.createElement('li');
+            li.textContent = nodeId;
+            li.addEventListener('click', () => toggleSublist(li, nodeId, results));
+            ul.appendChild(li);
+        });
+
+    } catch (err) {
+        console.error("Validation failed:", err);
+        alert("Validation failed. See console for details.");
+    }
+});
+
+
 
 document.getElementById('viewProcess').addEventListener('click', e => {
         if (!jsonDoc) {
@@ -40,44 +124,6 @@ document.getElementById('viewProcess').addEventListener('click', e => {
             alert("Error: " + error.message);
         });
       });
-
-document.getElementById('shaclFile').addEventListener('change', e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-    const parsed = JSON.parse(reader.result);
-    const results = parsed?.shaclReport?.result || [];
-    const fileValidation = parsed?.fileValidation;
-  
-  renderValidationSummary(fileValidation);
-
-    results.forEach(res => {
-        const nodeFull = res.focusNode;
-        const nodeFullStr = typeof nodeFull === 'string' ? nodeFull : nodeFull?.['@id'] || '';
-        const nodeIdMatch = nodeFullStr.match(/ID_\d+_\d+/);
-
-        // Try to find identifier manually (works for hasWindows-style violations)
-        const identifier = res.focusNode?.["http://purl.org/dc/terms/identifier"];
-        const nodeId = identifier || nodeIdMatch?.[0];
-
-        if (!nodeId) return;
-        if (!focusMap[nodeId]) focusMap[nodeId] = [];
-        focusMap[nodeId].push(res);
-    });
-
-
-    const ul = document.getElementById('focusNodeList');
-    ul.innerHTML = '';
-    Object.entries(focusMap).forEach(([nodeId, results]) => {
-        const li = document.createElement('li');
-        li.textContent = nodeId;
-        li.addEventListener('click', () => toggleSublist(li, nodeId, results));
-        ul.appendChild(li);
-    });
-    };
-    reader.readAsText(file);
-});
 
 function renderValidationSummary(fileValidation) {
   const div = document.getElementById('val3dity');
