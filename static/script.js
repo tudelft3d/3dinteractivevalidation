@@ -5,6 +5,7 @@ const focusMap = {};
 let selectedID = null;
 let selectedOBJ = null;
 let choosenProfile = null;
+let uploadedContent = null;
 
 async function loadShaclIds() {
     try {
@@ -34,25 +35,51 @@ function saveSelectedId(selectElement) {
     console.log("Choosen ID:", choosenProfile);
 }
 
+document.getElementById('shaclUpload').addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    uploadedContent = event.target.result;
+    console.log("✅ SHACL content readed:", uploadedContent.slice(0, 50) + '...');
+  };
+  reader.readAsText(file);
+});
+
 document.getElementById('shaclFile').addEventListener('click', async () => {
     if (!jsonDoc) {
         alert("Please upload a CityJSON file first.");
         return;
     }
+    document.getElementById("focusNodeLoading").style.display = "flex";
+    
+    const hasSelectedProfile = choosenProfile && choosenProfile.trim() !== "";
+    const hasUploadedShacl = uploadedContent && uploadedContent.trim() !== "";
 
+    let profileIdToUse = "_shaclValidation";
+    let profileContentsToUse = null;
+
+    if (hasSelectedProfile) {
+    profileIdToUse = choosenProfile;
+    } else if (hasUploadedShacl) {
+    profileContentsToUse = uploadedContent;
+    }
     try {
         const response = await fetch('/proxy/validate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 cityjson: JSON.stringify(jsonDoc),
-                profileContents: null,     // or a string if you later support profiles
-                profileId: choosenProfile            // will default to _shaclValidation
+                profileId: profileIdToUse,
+                profileContents: profileContentsToUse
             })
         });
 
         if (!response.ok) throw new Error("Validation failed");
-
+        if (response.ok) {  
+            document.getElementById("focusNodeLoading").style.display = "none";
+        }
         const parsed = await response.json();
         const results = parsed?.shaclReport?.result || [];
         const fileValidation = parsed?.fileValidation;
