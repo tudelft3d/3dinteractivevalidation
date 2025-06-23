@@ -16,7 +16,6 @@ async function loadShaclIds() {
         const ids = await response.json();
         const dropdown = document.getElementById('shaclDropdown');
 
-        // Önce önceki seçenekleri temizle
         dropdown.innerHTML = '<option disabled selected>Choose a profile</option>';
 
         ids.forEach(id => {
@@ -32,7 +31,7 @@ async function loadShaclIds() {
 
 function saveSelectedId(selectElement) {
     choosenProfile = selectElement.value;
-    console.log("Seçilen ID:", choosenProfile);
+    console.log("Choosen ID:", choosenProfile);
 }
 
 document.getElementById('shaclFile').addEventListener('click', async () => {
