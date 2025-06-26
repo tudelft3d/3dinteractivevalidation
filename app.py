@@ -12,7 +12,7 @@ import requests
 import time
 from urllib.parse import urljoin
 
-VALIDATOR_BASE_URL = 'http://0.0.0.0:8080/'
+VALIDATOR_BASE_URL = 'https://defs-dev.opengis.net/chek-validator'
 CHECK_INTERVAL = 0.5  # seconds
 currDate = datetime.now()
 app = Flask(__name__)
@@ -38,7 +38,7 @@ def fetch_profiles(backend_url):
 @app.route('/process-ids')
 def get_process_ids():
     try:
-        processes = fetch_profiles(VALIDATOR_BASE_URL + "#validator")
+        processes = fetch_profiles(VALIDATOR_BASE_URL)
         ids = [p['id'] for p in processes]
         return jsonify(ids)
     except Exception as e:
