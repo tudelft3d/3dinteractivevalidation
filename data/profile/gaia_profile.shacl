@@ -1,4 +1,4 @@
-@prefix my-rule: <http://example.com/change-me/#lisbon> .
+@prefix my-rule: <http://example.com/change-me/#gaia> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -39,12 +39,6 @@ my-rule:BuildingAttributeRules
     sh:select """
       SELECT $this (?value as ?path) ?value ?req WHERE {
         {
-          FILTER NOT EXISTS {
-            $this attr:geometricAccuracy ?value .
-            FILTER(datatype(?value) = xsd:float && xsd:float(?value) > 0 && xsd:float(?value) <= 0.1)
-          }
-          BIND("Building geometricAccuracy must be a positive float <= 0.1 m" as ?req)
-        } UNION {
           FILTER NOT EXISTS { $this attr:legalHeight ?value }
           BIND("legalHeight is missing" as ?req)
         } UNION {
@@ -92,16 +86,6 @@ my-rule:SurfaceRules
           FILTER(?parent = $this)
           BIND(attr:material as ?value)
           BIND("WallSurface material attribute is missing or not a string" as ?req)
-        } UNION {
-          ?surface a city:RoofSurface .
-          FILTER NOT EXISTS {
-            ?surface attr:material ?mat .
-            FILTER(datatype(?mat) = xsd:string || isLiteral(?mat))
-          }
-          ?surface ^city:hasSurface/^city:hasGeometry/^city:hasChild ?parent .
-          FILTER(?parent = $this)
-          BIND(attr:material as ?value)
-          BIND("RoofSurface material attribute is missing or not a string" as ?req)
         } UNION {
           ?geom city:hasSurface ?surface .
           ?surface a city:RoofSurface .
