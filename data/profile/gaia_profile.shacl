@@ -1,0 +1,320 @@
+@prefix my-rule: <http://example.com/change-me/#lisbon> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <http://example.org/> .
+@prefix chek: <urn:chek:vocab/> .
+@prefix city: <http://example.com/vocab/city/> .
+@prefix attr: <http://example.com/vocab/city/attr#> .
+
+###################################################################
+# Existence
+###################################################################
+my-rule:DocumentMustHaveBuildingShape
+  a sh:NodeShape ;
+  sh:targetClass chek:document ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "A CityJSON document must contain at least one city:Building object." ;
+    sh:select """
+    SELECT * WHERE {
+      $this a chek:document .
+      FILTER NOT EXISTS {
+        $this ?p ?b .
+        ?b a city:Building .
+      }
+    }
+    """
+  ] ;
+  sh:severity sh:Violation .
+
+###################################################################
+# Building Attribute Rules
+###################################################################
+my-rule:BuildingAttributeRules
+  a sh:NodeShape ;
+  sh:targetClass city:Building, city:BuildingPart ;
+  sh:sparql [
+    sh:prefixes ex: ;
+    sh:select """
+      SELECT $this (?value as ?path) ?value ?req WHERE {
+        {
+          FILTER NOT EXISTS {
+            $this attr:geometricAccuracy ?value .
+            FILTER(datatype(?value) = xsd:float && xsd:float(?value) > 0 && xsd:float(?value) <= 0.1)
+          }
+          BIND("Building geometricAccuracy must be a positive float <= 0.1 m" as ?req)
+        } UNION {
+          FILTER NOT EXISTS { $this attr:legalHeight ?value }
+          BIND("legalHeight is missing" as ?req)
+        } UNION {
+          $this attr:legalHeight ?value .
+          FILTER(xsd:float(?value) <= 0)
+          BIND("legalHeight must be a positive float" as ?req)
+        } UNION {
+          FILTER NOT EXISTS { $this attr:legalVolume ?value }
+          BIND("legalVolume is missing" as ?req)
+        } UNION {
+          $this attr:legalVolume ?value .
+          FILTER(xsd:float(?value) <= 0)
+          BIND("legalVolume must be a positive float" as ?req)
+        } UNION {
+          FILTER NOT EXISTS { $this attr:storeysAboveGround ?value }
+          BIND("storeysAboveGround is missing" as ?req)
+        } UNION {
+          $this attr:storeysAboveGround ?value .
+          FILTER(xsd:integer(?value) < 0)
+          BIND("storeysAboveGround must be a non-negative integer" as ?req)
+        }
+      }
+    """ ;
+  ] ;
+  sh:message "Building does not satisfy requirement: {?req}" ;
+  sh:severity sh:Violation .
+
+###################################################################
+# Surface Rules (WallSurface / RoofSurface)
+###################################################################
+my-rule:SurfaceRules
+  a sh:NodeShape ;
+  sh:targetClass city:Building, city:BuildingPart ;
+  sh:sparql [
+    sh:prefixes ex: ;
+    sh:select """
+      SELECT $this (?value as ?path) ?value ?req WHERE {
+        {
+          ?surface a city:WallSurface .
+          FILTER NOT EXISTS {
+            ?surface attr:material ?mat .
+            FILTER(datatype(?mat) = xsd:string || isLiteral(?mat))
+          }
+          ?surface ^city:hasSurface/^city:hasGeometry/^city:hasChild ?parent .
+          FILTER(?parent = $this)
+          BIND(attr:material as ?value)
+          BIND("WallSurface material attribute is missing or not a string" as ?req)
+        } UNION {
+          ?surface a city:RoofSurface .
+          FILTER NOT EXISTS {
+            ?surface attr:material ?mat .
+            FILTER(datatype(?mat) = xsd:string || isLiteral(?mat))
+          }
+          ?surface ^city:hasSurface/^city:hasGeometry/^city:hasChild ?parent .
+          FILTER(?parent = $this)
+          BIND(attr:material as ?value)
+          BIND("RoofSurface material attribute is missing or not a string" as ?req)
+        } UNION {
+          ?geom city:hasSurface ?surface .
+          ?surface a city:RoofSurface .
+          OPTIONAL { ?geom city:lod ?lod }
+          FILTER(!BOUND(?lod) || datatype(?lod) != xsd:string || xsd:decimal(?lod) < 2)
+          ?geom ^city:hasGeometry/^city:hasChild ?parent .
+          FILTER(?parent = $this)
+          BIND(city:RoofSurface as ?value)
+          BIND("If RoofSurface exists in a Building, its geometry.lod must be >= 2" as ?req)
+        }
+      }
+    """ ;
+  ] ;
+  sh:message "Building does not satisfy requirement: {?req}" ;
+  sh:severity sh:Violation .
+
+###################################################################
+# mainEntrance
+###################################################################
+my-rule:MainEntranceFromBuildingShape
+  a sh:NodeShape ;
+  sh:targetClass city:Building, city:BuildingPart ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Building must contain either at least a storey or at least one Door with mainEntrance = 1" ;
+    sh:select """
+    SELECT * WHERE {
+        $this a city:Building .
+        FILTER NOT EXISTS {
+          {
+          # Building
+            $this city:hasGeometry ?geom .
+            ?geom city:hasSurface ?surface .
+            ?surface a city:Door ;
+                    attr:mainEntrance ?val .
+                  FILTER (
+                    ?val = 1 || 
+                    str(?val) = "1" || 
+                    ?val = true
+                  )
+          }
+          UNION
+          {
+            $this (city:hasChild|^city:hasParent)/rdf:type city:BuildingStorey .
+          }
+        }
+    }
+    """
+  ] ;
+  sh:severity sh:Violation .
+  
+my-rule:MainEntranceFromBuildingStoreyShape
+  a sh:NodeShape ;
+  sh:targetClass city:BuildingStorey ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Building storeys must contain at least one Door with mainEntrance = 1." ;
+    sh:select """
+      SELECT $this WHERE {
+        FILTER NOT EXISTS {
+          # BuildingStorey
+          ?storey a city:BuildingStorey ;
+                  city:hasGeometry ?geom2 .
+          ?geom2 city:hasSurface ?surface2 .
+          ?surface2 a city:Door ;
+                      attr:mainEntrance ?val2 .
+                  FILTER (
+                    ?val2 = 1 || 
+                    str(?val2) = "1" || 
+                    ?val2 = true
+                  )
+        }
+    }
+    """
+  ] ;
+  sh:severity sh:Violation .
+
+###################################################################
+# hasWindows
+###################################################################
+my-rule:HasWindowsFromBuildingShape
+  a sh:NodeShape ;
+  sh:targetClass city:Building, city:BuildingPart ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Building must contain either at least a storey or at least one WallSurface with hasWindows = 1" ;
+    sh:select """
+    SELECT * WHERE {
+      $this a city:Building .
+      FILTER NOT EXISTS {
+        {
+        # Building
+          $this city:hasGeometry ?geom .
+          ?geom city:hasSurface ?surface .
+          ?surface a city:WallSurface ;
+                  attr:hasWindows ?val .
+                  FILTER (
+                    ?val = 1 || 
+                    str(?val) = "1" || 
+                    ?val = true
+                  )
+        }
+        UNION
+        {
+          $this (city:hasChild|^city:hasParent)/rdf:type city:BuildingStorey .
+        }
+      }
+    }
+    """
+  ] ;
+  sh:severity sh:Violation .
+  
+my-rule:HasWindowsFromBuildingStoreyShape
+  a sh:NodeShape ;
+  sh:targetClass city:BuildingStorey ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Building storeys must contain at least one WallSurface with hasWindows = 1." ;
+    sh:select """
+      SELECT $this WHERE {
+        FILTER NOT EXISTS {
+          # BuildingStorey
+          ?storey a city:BuildingStorey ;
+                  city:hasGeometry ?geom2 .
+          ?geom2 city:hasSurface ?surface2 .
+          ?surface2 a city:WallSurface ;
+                      attr:hasWindows ?val2 .
+                  FILTER (
+                    ?val2 = 1 || 
+                    str(?val2) = "1" || 
+                    ?val2 = true
+                  )
+        }
+    }
+    """
+  ] ;
+  sh:severity sh:Violation .
+
+###################################################################
+# floorArea
+###################################################################
+my-rule:BuildingPartMustHaveFloorArea
+  a sh:NodeShape ;
+  sh:targetClass city:BuildingPart ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Each BuildingPart must have a positive floorArea (attr:floorArea)." ;
+    sh:select """
+      SELECT $this WHERE {
+        FILTER NOT EXISTS {
+          $this attr:floorArea ?area .
+          FILTER(xsd:float(?area) > 0)
+        }
+      }
+    """
+  ] ;
+  sh:severity sh:Violation .
+
+my-rule:BuildingMustHaveTotalFloorArea
+  a sh:NodeShape ;
+  sh:targetClass city:Building ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Each Building must have a totalFloorArea (attr:totalFloorArea > 0)." ;
+    sh:select """
+      SELECT $this WHERE {
+        FILTER NOT EXISTS {
+          $this attr:totalFloorArea ?total .
+          FILTER(xsd:float(?total) > 0)
+        }
+      }
+    """
+  ] ;
+  sh:severity sh:Violation .
+
+my-rule:TotalFloorAreaConsistency
+  a sh:NodeShape ;
+  sh:targetClass city:Building ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "totalFloorArea must equal the sum of the floorAreas of its BuildingParts (within a small tolerance)." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this attr:totalFloorArea ?total .
+        {
+          SELECT ?building (SUM(xsd:float(?area)) AS ?sumParts) WHERE {
+            ?part a city:BuildingPart ;
+                  attr:floorArea ?area ;
+                  city:hasParent ?building .
+          } GROUP BY ?building
+        }
+        FILTER (?building = $this)
+        FILTER (ABS(?sumParts - xsd:float(?total)) > 0.01)
+      }
+    """
+  ] ;
+  sh:severity sh:Violation .
+
+ex: a owl:Ontology ;
+owl:imports sh: ;
+sh:declare [ sh:namespace "urn:chek:vocab/"^^xsd:anyURI ;
+    sh:prefix "chek" ],
+[ sh:namespace "http://purl.org/dc/terms/"^^xsd:anyURI ;
+    sh:prefix "dct" ],
+[ sh:namespace "http://example.com/vocab/city/"^^xsd:anyURI ;
+    sh:prefix "city" ],
+[ sh:namespace "https://w3id.org/okn/o/sd#"^^xsd:anyURI ;
+    sh:prefix "sd" ],
+[ sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
+    sh:prefix "rdfs" ],
+[ sh:namespace "http://example.com/vocab/city/attr#"^^xsd:anyURI ;
+    sh:prefix "attr" ],
+[ sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+    sh:prefix "rdf" ] .
+
+
