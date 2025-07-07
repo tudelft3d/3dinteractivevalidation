@@ -269,20 +269,23 @@ my-rule:TotalFloorAreaConsistency
     sh:message "totalFloorArea must equal the sum of the floorAreas of its BuildingParts (within a small tolerance)." ;
     sh:select """
       SELECT $this WHERE {
-        $this attr:totalFloorArea ?total .
+        $this a city:Building ;
+              attr:totalFloorArea ?total .
+
         {
-          SELECT ?building (SUM(xsd:float(?area)) AS ?sumParts) WHERE {
+          SELECT ?this (SUM(xsd:float(?area)) AS ?sumParts) WHERE {
             ?part a city:BuildingPart ;
                   attr:floorArea ?area ;
-                  city:hasParent ?building .
-          } GROUP BY ?building
+                  city:hasParent ?this .
+          } GROUP BY ?this
         }
-        FILTER (?building = $this)
+
         FILTER (ABS(?sumParts - xsd:float(?total)) > 0.01)
       }
     """
   ] ;
   sh:severity sh:Violation .
+
 
 ex: a owl:Ontology ;
 owl:imports sh: ;
