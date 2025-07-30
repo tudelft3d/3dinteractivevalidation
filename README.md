@@ -33,6 +33,8 @@ cd chek-validation_info_view
 conda env create -f environment.yml
 
 ### Run the application
+
+```bash
 conda activate chek
 python app.py
 
