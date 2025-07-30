@@ -23,10 +23,16 @@ This is a lightweight Flask-based web application for uploading, validating, and
 
 - Python 3.8+
 - pip
+- Anaconda 3
 
 ### Clone & Install Dependencies
 
 ```bash
 git clone https://github.com/alpertungakin/chek-validation_info_view.git
 cd chek-validation_info_view
-pip install -r requirements.txt
+conda env create -f environment.yml
+
+### Run the application
+conda activate chek
+python app.py
+
