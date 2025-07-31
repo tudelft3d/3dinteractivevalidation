@@ -21,8 +21,6 @@ This is a lightweight Flask-based web application for uploading, validating, and
 
 ### Prerequisites
 
-- Python 3.8+
-- pip
 - Anaconda 3
 
 ### Clone & Install Dependencies
