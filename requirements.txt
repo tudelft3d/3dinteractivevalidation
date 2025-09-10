@@ -1,0 +1,4 @@
+cjio[export,reproject]==0.10.1
+click==8.2.0
+flask==3.1.1
+requests==2.32.4

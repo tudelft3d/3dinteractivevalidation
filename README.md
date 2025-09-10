@@ -19,21 +19,22 @@ This is a lightweight Flask-based web application for uploading, validating, and
 
 ## 📦 Installation
 
-### Prerequisites
-
-- Anaconda 3
-
 ### Clone & Install Dependencies
 
+##### Clone the repo
 ```bash
-git clone https://github.com/alpertungakin/chek-validation_info_view.git
-cd chek-validation_info_view
-conda env create -f environment.yml
+git clone https://github.com/tudelft3d/3dinteractivevalidation.git
+cd 3dinteractivevalidation
 ```
 
-### Run the application
-
+##### Create a virtual env with all the dependencies
 ```bash
-conda activate chek
-python app.py
+python3 -m .venv venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+##### Run the application
+```bash
+python3 app.py
 ```
