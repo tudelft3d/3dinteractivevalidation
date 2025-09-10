@@ -9,7 +9,7 @@ let uploadedContent = null;
 
 async function loadShaclIds() {
     try {
-        const response = await fetch('/process-ids');
+        const response = await fetch('/3dinteractivevalidation/process-ids');
         if (!response.ok) {
             throw new Error(`Server error: ${response.statusText}`);
         }
@@ -49,6 +49,7 @@ document.getElementById('shaclUpload').addEventListener('change', function (e) {
 
 document.getElementById('shaclFile').addEventListener('click', async () => {
     if (!jsonDoc) {
+        console.log("jsonDoc is not set, showing alert");
         alert("Please upload a CityJSON file first.");
         return;
     }
@@ -66,7 +67,7 @@ document.getElementById('shaclFile').addEventListener('click', async () => {
     profileContentsToUse = uploadedContent;
     }
     try {
-        const response = await fetch('/proxy/validate', {
+        const response = await fetch('/3dinteractivevalidation/proxy/validate/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -76,8 +77,8 @@ document.getElementById('shaclFile').addEventListener('click', async () => {
             })
         });
 
-        if (!response.ok) throw new Error("Validation failed");
-        if (response.ok) {  
+        if (!response.ok) throw new Error("Validation failed: " + response.statusText);
+        if (response.ok) {
             document.getElementById("focusNodeLoading").style.display = "none";
         }
         const parsed = await response.json();
@@ -125,13 +126,13 @@ document.getElementById('viewProcess').addEventListener('click', e => {
         jsonBlob = new Blob([JSON.stringify(jsonDoc)], { type: 'application/json' });
 
         formData.append('file', jsonBlob);
-        fetch('/visualize', {
+        fetch('/3dinteractivevalidation/visualize', {
             method: 'POST',
             body: formData
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('Network response was not ok: ' + response.statusText);
             }
             return response.json();
         })
@@ -139,7 +140,7 @@ document.getElementById('viewProcess').addEventListener('click', e => {
         // Dynamically construct the absolute URL
             const glbFileName = data.response;
             const baseUrl = `${window.location.protocol}//${window.location.host}`;
-            const glbUrl = `${baseUrl}/download/${glbFileName}`;
+            const glbUrl = `${baseUrl}/3dinteractivevalidation/download/${glbFileName}`;
 
             console.log("Constructed GLB URL:", glbUrl); // Debugging
             viewWhole(glbUrl);
