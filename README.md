@@ -2,6 +2,9 @@
 
 This is a lightweight Flask-based web application for uploading, validating, and visualizing [CityJSON](https://www.cityjson.org/) files. It leverages the [CHEK Validator](https://defs-dev.opengis.net/chek-validator) to validate CityJSON data against SHACL profiles and converts the data to a GLB format for 3D visualization.
 
+## ⚡️ Live Application
+[CHEK Validation Results Viewer](https://chekvalidityviewer.tudelft.nl/3dinteractivevalidation/)
+
 ## 🚀 Features
 
 - Upload a CityJSON file and convert it to a 3D GLB model.
