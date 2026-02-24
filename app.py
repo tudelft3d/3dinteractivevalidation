@@ -12,6 +12,8 @@ import requests
 import time
 from urllib.parse import urljoin
 import logging
+import cityjson2glb
+import pyproj
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -77,22 +79,23 @@ def visualize():
         logger.info("File saved temporarily")   
 
         # Parse the CityJSON file
-        with open(temp_file_path, "r", encoding="utf-8-sig") as f:
-            cm = cityjson.reader(file=f)
+        cm = cityjson.load(temp_file_path)
         logger.info("CityJSON parsed successfully")   
 
         # Export to GLB
-        glb_data = cm.export2glb()
+        #glb_data = cm.export2glb()
+        transformer = pyproj.Transformer.from_crs(cm.get_epsg(), "EPSG:4978", always_xy=True)
+    
+        city_objects = list(cm.get_cityobjects().keys())
         logger.info("GLB export successful")   
-
-        # Generate a unique filename
+         # Generate a unique filename
         fileNameGLB = f"{request.remote_addr}_{currDate.timestamp()}.glb"
         direcGLB = os.path.join('received', fileNameGLB)
-
         # Write the GLB data to a file
-        with open(direcGLB, "wb") as glb_file:
-            glb_file.write(glb_data.getvalue())
-        logger.info("GLB file written successfully")   
+
+        cityjson2glb.cityjson_to_glb(city_objects, cm, transformer, direcGLB)
+        logger.info("GLB file written successfully") 
+ 
 
         return jsonify({
             'response' : fileNameGLB
@@ -180,4 +183,4 @@ def proxy_validate():
 app.register_blueprint(main_bp)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5001, debug=True)

@@ -27,56 +27,103 @@ my-rule:DocumentMustHaveBuildingShape
     """
   ] ;
   sh:severity sh:Violation .
-
+  
 ###################################################################
-# Building Attribute Rules
+# Building: geometricAccuracy
 ###################################################################
-my-rule:BuildingAttributeRules
+my-rule:BuildingGeometricAccuracyShape
   a sh:NodeShape ;
   sh:targetClass city:Building, city:BuildingPart ;
   sh:sparql [
-    sh:prefixes ex: ;
+    a sh:SPARQLConstraint ;
+    sh:message "Building geometricAccuracy must be a positive number <= 0.1 m." ;
     sh:select """
-      SELECT $this (?value as ?path) ?value ?req WHERE {
-        {
-          FILTER NOT EXISTS {
-            $this attr:geometricAccuracy ?value .
-            FILTER(datatype(?value) = xsd:float && xsd:float(?value) > 0 && xsd:float(?value) <= 0.1)
-          }
-          BIND("Building geometricAccuracy must be a positive float <= 0.1 m" as ?req)
-        } UNION {
-          FILTER NOT EXISTS { $this attr:legalHeight ?value }
-          BIND("legalHeight is missing" as ?req)
-        } UNION {
-          $this attr:legalHeight ?value .
-          FILTER(xsd:float(?value) <= 0)
-          BIND("legalHeight must be a positive float" as ?req)
-        } UNION {
-          FILTER NOT EXISTS { $this attr:legalVolume ?value }
-          BIND("legalVolume is missing" as ?req)
-        } UNION {
-          $this attr:legalVolume ?value .
-          FILTER(xsd:float(?value) <= 0)
-          BIND("legalVolume must be a positive float" as ?req)
-        } UNION {
-          FILTER NOT EXISTS { $this attr:storeysAboveGround ?value }
-          BIND("storeysAboveGround is missing" as ?req)
-        } UNION {
-          $this attr:storeysAboveGround ?value .
-          FILTER(xsd:integer(?value) < 0)
-          BIND("storeysAboveGround must be a non-negative integer" as ?req)
-        } UNION {
-          FILTER NOT EXISTS { $this attr:storeysBelowGround ?value }
-          BIND("storeysBelowGround is missing" as ?req)
-        } UNION {
-          $this attr:storeysBelowGround ?value .
-          FILTER(xsd:integer(?value) < 0)
-          BIND("storeysBelowGround must be a non-negative integer" as ?req)
-        }
-      }
-    """ ;
+    SELECT $this WHERE {
+      $this attr:geometricAccuracy ?val .
+      FILTER ( ?val > 0.1 )
+    }
+    """
   ] ;
-  sh:message "Building does not satisfy requirement: {?req}" ;
+  sh:severity sh:Violation .
+
+###################################################################
+# Building: legalHeight
+###################################################################
+my-rule:BuildingLegalHeightShape
+  a sh:NodeShape ;
+  sh:targetClass city:Building ;
+  sh:property [
+    sh:path attr:legalHeight ;
+    sh:minCount 1 ;
+    sh:or (
+       [ sh:datatype xsd:decimal ]
+       [ sh:datatype xsd:integer ]
+    ) ;
+    sh:minExclusive 0 ;
+  ] .
+
+###################################################################
+# Building: legalVolume
+###################################################################
+my-rule:BuildingLegalVolumeShape
+  a sh:NodeShape ;
+  sh:targetClass city:Building, city:BuildingPart ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Building legalVolume must be a positive number and is required." ;
+    sh:select """
+    SELECT $this WHERE {
+      FILTER NOT EXISTS {
+
+      $this attr:legalVolume ?val .
+      FILTER ( ?val <= 0 )
+    }
+    }
+    """
+  ] ;
+  sh:severity sh:Violation .
+
+###################################################################
+# Building: storeysAboveGround
+###################################################################
+my-rule:BuildingStoreysAboveGroundShape
+  a sh:NodeShape ;
+  sh:targetClass city:Building, city:BuildingPart ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Building storeysAboveGround must be a non-negative number and is required." ;
+    sh:select """
+    SELECT $this WHERE {
+      FILTER NOT EXISTS {
+
+      $this attr:storeysAboveGround ?val .
+      FILTER ( ?val < 0 )
+    }
+    }
+    """
+  ] ;
+  sh:severity sh:Violation .
+
+###################################################################
+# Building: storeysBelowGround
+###################################################################
+my-rule:BuildingStoreysBelowGroundShape
+  a sh:NodeShape ;
+  sh:targetClass city:Building, city:BuildingPart ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Building storeysBelowGround must be a non-negative number and is required." ;
+    sh:select """
+    SELECT $this WHERE { 
+    FILTER NOT EXISTS {
+      
+      $this attr:storeysBelowGround ?val .
+      FILTER ( ?val < 0 )
+    
+    }
+    }
+    """
+  ] ;
   sh:severity sh:Violation .
 
 ###################################################################
