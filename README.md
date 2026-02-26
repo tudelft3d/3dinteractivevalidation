@@ -41,3 +41,10 @@ pip install -r requirements.txt
 ```bash
 python3 app.py
 ```
+
+### Using Docker Image
+```bash
+docker pull alpertungakin/3dinteractivevalidation:latest
+docker run -p 5001:5001 alpertungakin/3dinteractivevalidation:latest
+```
+[http://localhost:5001](http://localhost:5001)
