@@ -47,4 +47,5 @@ python3 app.py
 docker pull alpertungakin/3dinteractivevalidation:latest
 docker run -p 5001:5001 alpertungakin/3dinteractivevalidation:latest
 ```
+After Docker run, go to=>
 [http://localhost:5001](http://localhost:5001)
