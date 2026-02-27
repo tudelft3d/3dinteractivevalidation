@@ -44,8 +44,8 @@ python3 app.py
 
 ### Using Docker Image
 ```bash
-docker pull alpertungakin/3dinteractivevalidation:latest
-docker run -p 5001:5001 alpertungakin/3dinteractivevalidation:latest
+docker pull --platform linux/arm64 alpertungakin/3dinteractivevalidation:latest
+docker run --platform linux/arm64 -p 5001:5001 alpertungakin/3dinteractivevalidation:latest
 ```
 After Docker run, go to=>
-[http://localhost:5001](http://localhost:5001)
+[http://localhost:5001/3dinteractivevalidation](http://localhost:5001/3dinteractivevalidation)
